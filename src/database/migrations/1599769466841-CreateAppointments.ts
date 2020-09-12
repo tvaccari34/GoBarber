@@ -21,6 +21,16 @@ export default class CreateAppointments1599769466841 implements MigrationInterfa
                     {
                         name: 'date',
                         type: 'timestamp with time zone',
+                    },
+                    {
+                        name: 'created_at',
+                        type: 'date',
+                        default: 'now()',
+                    },
+                    {
+                        name: 'updated_at',
+                        type: 'date',
+                        default: 'now()',
                     }
                 ]
             })
