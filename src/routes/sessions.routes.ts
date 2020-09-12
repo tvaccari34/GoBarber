@@ -3,6 +3,15 @@ import AuthenticateUserSession from '../services/AuthenticateUserService';
 
 const sessionsRouter = Router();
 
+interface User {
+    name: string;
+    email: string;
+    password?: string;
+    id: string;
+    created_at: Date;
+    updated_at: Date;
+  }
+
 sessionsRouter.post('/', async (request, response) => {
 
     try {
@@ -10,12 +19,14 @@ sessionsRouter.post('/', async (request, response) => {
 
         const authenticateUser = new AuthenticateUserSession();
 
-        const response = await authenticateUser.execute({
+        const { user } = await authenticateUser.execute({
             email,
             password,
         });
 
-        return response.json({ ok: true });
+        delete user.password;
+
+        return response.json({ user });
     } catch (error) {
         return response.status(400).json({error: error.message})
     }
