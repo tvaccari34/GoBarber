@@ -1,7 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-import auth from '../config/auth';
 import authConfig from '../config/auth';
+
+interface TokenPayload {
+    iat: number;
+    exp: number;
+    sub: string;
+}
 
 export default function ensureAuthenticated(request: Request, response: Response, next: NextFunction): void{
 
@@ -13,13 +18,15 @@ export default function ensureAuthenticated(request: Request, response: Response
 
     const [, token] = authHeader.split('Bearer ');
 
-
-
     try {
         const { secret } = authConfig.jwt;
         const authorizationDecoded = verify(token, secret);
 
-        console.log(authorizationDecoded);
+        const { sub } = authorizationDecoded as TokenPayload;
+
+        request.user = {
+            id: sub,
+        }
 
         return next();
 
