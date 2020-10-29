@@ -28,7 +28,7 @@ describe('UpdateUserAvatar', () => {
         const mockStorageProvider = new MockStorageProvider();
         const updateUserAvatarService = new UpdateUserAvatarService(mockUsersRepository, mockStorageProvider);
 
-        expect(updateUserAvatarService.execute({
+        await expect(updateUserAvatarService.execute({
             user_id: '',
             avatarFileName: 'Avatar.jpg'
         })).rejects.toBeInstanceOf(AppError);

@@ -32,7 +32,7 @@ describe('AuthenticateUser', () => {
         const mockHashProvider = new MockHashProvider();
         const authenticateUser = new AuthenticateUserService(mockUsersRepository, mockHashProvider);
 
-        expect(authenticateUser.execute({
+        await expect(authenticateUser.execute({
             email: 'johndoe@test.com',
             password: '123456788'}),
         ).rejects.toBeInstanceOf(AppError);
@@ -50,7 +50,7 @@ describe('AuthenticateUser', () => {
             password: '123456789'
         });
 
-        expect(authenticateUser.execute({
+        await expect(authenticateUser.execute({
             email: 'johndoe@test.com',
             password: '123456788'})).rejects.toBeInstanceOf(AppError);
     });
@@ -67,26 +67,11 @@ describe('AuthenticateUser', () => {
             password: '123456789'
         });
 
-        expect(authenticateUser.execute({
+        await expect(authenticateUser.execute({
             email: 'johndoe@test.com',
             password: '123456788'})).rejects.toBeInstanceOf(AppError);
     });
 
-    // it('should not be able to create the same user twice', async () => {
-    //     const mockUsersRepository = new MockUsersRepository();
-    //     const createUserRepository = new AuthenticateUserService(mockUsersRepository);
-
-    //     await createUserRepository.execute({
-    //         name: 'John Doe',
-    //         email: 'johndoe@test.com',
-    //         password: '123456789'
-    //     });
-
-    //     expect(createUserRepository.execute({
-    //         name: 'John Doe',
-    //         email: 'johndoe@test.com',
-    //         password: '123456789'
-    //     })).rejects.toBeInstanceOf(AppError);
-    // });
+    
 });
 
