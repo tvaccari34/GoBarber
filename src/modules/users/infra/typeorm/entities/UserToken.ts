@@ -9,6 +9,9 @@ class UserToken {
     @Generated('uuid')
     token: string;
 
+    @Column()
+    user_id: string;
+
     @CreateDateColumn()
     created_at: Date;
 
@@ -16,4 +19,4 @@ class UserToken {
     updated_at: Date;
 }
 
-export default User;
+export default UserToken;
