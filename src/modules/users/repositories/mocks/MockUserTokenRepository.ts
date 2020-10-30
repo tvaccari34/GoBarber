@@ -1,3 +1,4 @@
+import usersRouter from '@modules/users/infra/http/routes/users.routes';
 import UserToken from '@modules/users/infra/typeorm/entities/UserToken';
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import { uuid } from 'uuidv4';
@@ -19,6 +20,13 @@ class MockUserTokensRepository
          })
 
         this.usertokens.push(userToken);
+
+        return userToken;
+    }
+
+    public async findByToken(token: string): Promise<UserToken | undefined> {
+
+        const userToken = this.usertokens.find(findToken => findToken.token == token);
 
         return userToken;
     }
