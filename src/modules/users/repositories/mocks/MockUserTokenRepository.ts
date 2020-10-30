@@ -16,7 +16,9 @@ class MockUserTokensRepository
         Object.assign(userToken, {
             id: uuid(),
             token: uuid(),
-            user_id
+            user_id,
+            created_at: new Date(),
+            updated_at: new Date(),
          })
 
         this.usertokens.push(userToken);
