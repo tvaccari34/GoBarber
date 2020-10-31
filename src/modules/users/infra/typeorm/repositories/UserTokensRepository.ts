@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import UserToken from '@modules/users/infra/typeorm/entities/UserToken';
-import IUserTokensRepository from '@modules/users/repositories/IUsersRepository';
+import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 
 
 class UserTokensRepository
@@ -34,4 +34,4 @@ class UserTokensRepository
 
 }
 
-export default UserTokenssRepository;
+export default UserTokensRepository;

@@ -21,8 +21,8 @@ class SendForgotPasswordEmailService {
         @inject('MailProvider')
         private mailProvider: IMailProvider,
 
-        @inject('UserTokensProvider')
-        private userTokensProvider: IUserTokensRepository,
+        @inject('UserTokensRepository')
+        private userTokensRepository: IUserTokensRepository,
 
     ){}
 
@@ -34,9 +34,9 @@ class SendForgotPasswordEmailService {
             throw new AppError('Email address does not exists.');
         }
 
-        await this.userTokensProvider.generate(user.id);
+        await this.userTokensRepository.generate(user.id);
 
-        this.mailProvider.sendMail(email, 'Recovery email received');
+        await this.mailProvider.sendMail(email, 'Recovery email received');
 
     }
 }
