@@ -43,10 +43,6 @@ class ResetPasswordService {
 
         const tokenCreatedAt = userToken.created_at;
 
-        console.log(Date.now());
-        console.log(new Date())
-        console.log(tokenCreatedAt);
-
         const tokentExpiration = differenceInMinutes(Date.now(), tokenCreatedAt);
 
         if (tokentExpiration > 30) {
