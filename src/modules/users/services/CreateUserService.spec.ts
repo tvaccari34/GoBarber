@@ -3,11 +3,19 @@ import AppError from '@shared/error/AppError';
 import MockHashProvider from '../providers/HashProvider/mocks/MockHashProvider';
 import CreateUserService from './CreateUserService';
 
+let mockUsersRepository: MockUsersRepository;
+let mockHashProvider: MockHashProvider;
+let createUserRepository: CreateUserService;
+
 describe('CreateUser', () => {
+
+    beforeEach(() => {
+        mockUsersRepository = new MockUsersRepository();
+        mockHashProvider = new MockHashProvider();
+        createUserRepository = new CreateUserService(mockUsersRepository, mockHashProvider);
+    })
+
     it('should be able to create a new user', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockHashProvider = new MockHashProvider();
-        const createUserRepository = new CreateUserService(mockUsersRepository, mockHashProvider);
 
         const user = await createUserRepository.execute({
             name: 'John Doe',
@@ -21,9 +29,6 @@ describe('CreateUser', () => {
     });
 
     it('should not be able to create the same user twice', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockHashProvider = new MockHashProvider();
-        const createUserRepository = new CreateUserService(mockUsersRepository, mockHashProvider);
 
         await createUserRepository.execute({
             name: 'John Doe',

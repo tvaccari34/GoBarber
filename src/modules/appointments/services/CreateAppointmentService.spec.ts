@@ -2,10 +2,17 @@ import MockAppointmentRepository from '@modules/appointments/repositories/mocks/
 import AppError from '@shared/error/AppError';
 import CreateAppointmentService from './CreateAppointmentService';
 
+let mockAppointmentRepository: MockAppointmentRepository;
+let createAppointmentRepository: CreateAppointmentService;
+
 describe('CreateAppointment', () => {
+
+    beforeEach(() => {
+        mockAppointmentRepository = new MockAppointmentRepository();
+        createAppointmentRepository = new CreateAppointmentService(mockAppointmentRepository);
+    })
+
     it('should be able to create a new appointment', async () => {
-        const mockAppointmentRepository = new MockAppointmentRepository();
-        const createAppointmentRepository = new CreateAppointmentService(mockAppointmentRepository);
 
         const appointment = await createAppointmentRepository.execute({
             date: new Date(),
@@ -17,8 +24,6 @@ describe('CreateAppointment', () => {
     });
 
     it('should not be able to create two appointments on the same time', async () => {
-        const mockAppointmentRepository = new MockAppointmentRepository();
-        const createAppointmentRepository = new CreateAppointmentService(mockAppointmentRepository);
 
         const appointmentDate = new Date(2020, 11, 10, 11);
 

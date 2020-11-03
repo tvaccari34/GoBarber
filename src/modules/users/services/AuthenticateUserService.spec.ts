@@ -5,12 +5,21 @@ import MockHashProvider from '../providers/HashProvider/mocks/MockHashProvider';
 import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 
+let mockUsersRepository: MockUsersRepository;
+let mockHashProvider: MockHashProvider;
+let createUser: CreateUserService;
+let authenticateUser: AuthenticateUserService;
+
 describe('AuthenticateUser', () => {
+
+    beforeEach(() => {
+        mockUsersRepository = new MockUsersRepository();
+        mockHashProvider = new MockHashProvider();
+        createUser = new CreateUserService(mockUsersRepository, mockHashProvider);
+        authenticateUser = new AuthenticateUserService(mockUsersRepository, mockHashProvider);
+    })
+
     it('should be able to authenticate', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockHashProvider = new MockHashProvider();
-        const createUser = new CreateUserService(mockUsersRepository, mockHashProvider);
-        const authenticateUser = new AuthenticateUserService(mockUsersRepository, mockHashProvider);
 
         const user = await createUser.execute({
             name: 'John Doe',
@@ -28,9 +37,6 @@ describe('AuthenticateUser', () => {
     });
 
     it('should not be able to authenticate within non existing user', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockHashProvider = new MockHashProvider();
-        const authenticateUser = new AuthenticateUserService(mockUsersRepository, mockHashProvider);
 
         await expect(authenticateUser.execute({
             email: 'johndoe@test.com',
@@ -39,10 +45,7 @@ describe('AuthenticateUser', () => {
     });
 
     it('should not be able to authenticate within incorrect email', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockHashProvider = new MockHashProvider();
-        const createUser = new CreateUserService(mockUsersRepository, mockHashProvider);
-        const authenticateUser = new AuthenticateUserService(mockUsersRepository, mockHashProvider);
+
 
         const user = await createUser.execute({
             name: 'John Doe',
@@ -56,10 +59,6 @@ describe('AuthenticateUser', () => {
     });
 
     it('should not be able to authenticate within incorrect password', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockHashProvider = new MockHashProvider();
-        const createUser = new CreateUserService(mockUsersRepository, mockHashProvider);
-        const authenticateUser = new AuthenticateUserService(mockUsersRepository, mockHashProvider);
 
         const user = await createUser.execute({
             name: 'John Doe',
@@ -72,6 +71,6 @@ describe('AuthenticateUser', () => {
             password: '123456788'})).rejects.toBeInstanceOf(AppError);
     });
 
-    
+
 });
 

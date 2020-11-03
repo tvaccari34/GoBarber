@@ -3,11 +3,19 @@ import MockStorageProvider from '@shared/container/providers/StorageProviders/mo
 import AppError from '@shared/error/AppError';
 import UpdateUserAvatarService from './UpdateUserAvatarService';
 
+let mockUsersRepository: MockUsersRepository;
+let mockStorageProvider: MockStorageProvider;
+let updateUserAvatarService: UpdateUserAvatarService;
+
 describe('UpdateUserAvatar', () => {
+
+    beforeEach(() => {
+        mockUsersRepository = new MockUsersRepository();
+        mockStorageProvider = new MockStorageProvider();
+        updateUserAvatarService = new UpdateUserAvatarService(mockUsersRepository, mockStorageProvider);
+    })
+
     it('should be able to update avatar', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockStorageProvider = new MockStorageProvider();
-        const updateUserAvatarService = new UpdateUserAvatarService(mockUsersRepository, mockStorageProvider);
 
         const user = await mockUsersRepository.create({
             name: 'John Doe',
@@ -24,9 +32,6 @@ describe('UpdateUserAvatar', () => {
     });
 
     it('should not be able to update avatar for a non authenticated user', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockStorageProvider = new MockStorageProvider();
-        const updateUserAvatarService = new UpdateUserAvatarService(mockUsersRepository, mockStorageProvider);
 
         await expect(updateUserAvatarService.execute({
             user_id: '',
@@ -35,9 +40,6 @@ describe('UpdateUserAvatar', () => {
     });
 
     it('should be able to update an old avatar to a new one', async () => {
-        const mockUsersRepository = new MockUsersRepository();
-        const mockStorageProvider = new MockStorageProvider();
-        const updateUserAvatarService = new UpdateUserAvatarService(mockUsersRepository, mockStorageProvider);
 
         const deleteFile = jest.spyOn(mockStorageProvider, 'deleteFile');
 
