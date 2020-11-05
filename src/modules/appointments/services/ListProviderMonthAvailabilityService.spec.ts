@@ -14,56 +14,67 @@ describe('ListProviderMonthAvailability', () => {
     it('should be able to list monthly provider`s availability', async () => {
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 8, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 9, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 10, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 11, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 12, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 13, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 14, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 15, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 16, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 22, 17, 0, 0),
         });
 
         await mockAppointmentsRepository.create({
             provider_id: 'user',
+            user_id: 'user1',
             date: new Date(2020, 10, 23, 11, 0, 0),
         });
 
