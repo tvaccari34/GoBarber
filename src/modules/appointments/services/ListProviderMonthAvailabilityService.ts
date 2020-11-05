@@ -49,10 +49,6 @@ class ListProviderMonthAvailabilityService {
             }
         });
 
-
-            console.log(eachDayArray);
-            console.log(appointments);
-
         return availability;
     }
 }
