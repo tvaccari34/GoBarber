@@ -1,15 +1,21 @@
 import MockAppointmentRepository from '@modules/appointments/repositories/mocks/MockAppointmentsRepository';
 import AppError from '@shared/error/AppError';
 import CreateAppointmentService from './CreateAppointmentService';
+import MockNotificationsRepository from '../../notifications/repositories/mocks/MockNotificationsRepository';
 
 let mockAppointmentRepository: MockAppointmentRepository;
 let createAppointmentRepository: CreateAppointmentService;
+let mockNotificationsRepository: MockNotificationsRepository;
 
 describe('CreateAppointment', () => {
 
     beforeEach(() => {
         mockAppointmentRepository = new MockAppointmentRepository();
-        createAppointmentRepository = new CreateAppointmentService(mockAppointmentRepository);
+        mockNotificationsRepository = new MockNotificationsRepository();
+        createAppointmentRepository = new CreateAppointmentService(
+            mockAppointmentRepository,
+            mockNotificationsRepository
+        );
     })
 
     it('should be able to create a new appointment', async () => {
