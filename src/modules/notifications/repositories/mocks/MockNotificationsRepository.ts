@@ -1,4 +1,4 @@
-import { ObjectId, ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import ICreateNotificationDTO from '@modules/notifications/dtos/ICreateNotificationDTO';
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import Notification from '../../infra/typeorm/schemas/notification';

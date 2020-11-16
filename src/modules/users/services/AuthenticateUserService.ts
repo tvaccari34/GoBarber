@@ -45,6 +45,10 @@ class AuthenticateUserService {
 
         const { secret, expiresIn } = authConfig.jwt;
 
+        if (!secret) {
+            throw new AppError('It is not possible to log in. Please, contact the system administrator.');
+        }
+
         const token = sign({}, secret, {
             subject: user.id,
             expiresIn,

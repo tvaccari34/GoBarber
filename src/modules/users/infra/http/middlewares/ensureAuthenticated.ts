@@ -21,12 +21,16 @@ export default function ensureAuthenticated(request: Request, response: Response
 
     try {
         const { secret } = authConfig.jwt;
-        const authorizationDecoded = verify(token, secret);
 
-        const { sub } = authorizationDecoded as ITokenPayload;
+        if (secret) {
 
-        request.user = {
-            id: sub,
+            const authorizationDecoded = verify(token, secret);
+
+            const { sub } = authorizationDecoded as ITokenPayload;
+
+            request.user = {
+                id: sub,
+            }
         }
 
         return next();
