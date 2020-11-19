@@ -1,15 +1,18 @@
 import MockUsersRepository from '@modules/users/repositories/mocks/MockUsersRepository';
+import MockCacheProvider from '@shared/container/providers/CacheProvider/mocks/MockCacheProvider';
 import AppError from '@shared/error/AppError';
 import ListProvidersService from './ListProvidersService';
 
 let mockUsersRepository: MockUsersRepository;
 let listProvidersService: ListProvidersService;
+let mockCacheProvider: MockCacheProvider;
 
 describe('ListProviders', () => {
 
     beforeEach(() => {
         mockUsersRepository = new MockUsersRepository();
-        listProvidersService = new ListProvidersService(mockUsersRepository);
+        mockCacheProvider = new MockCacheProvider();
+        listProvidersService = new ListProvidersService(mockUsersRepository, mockCacheProvider);
     });
 
     it('should be able to list providers', async () => {

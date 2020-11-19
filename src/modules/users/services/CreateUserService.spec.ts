@@ -1,18 +1,21 @@
 import MockUsersRepository from '@modules/users/repositories/mocks/MockUsersRepository';
 import AppError from '@shared/error/AppError';
 import MockHashProvider from '../providers/HashProvider/mocks/MockHashProvider';
+import MockCacheProvider from '@shared/container/providers/CacheProvider/mocks/MockCacheProvider';
 import CreateUserService from './CreateUserService';
 
 let mockUsersRepository: MockUsersRepository;
 let mockHashProvider: MockHashProvider;
 let createUserRepository: CreateUserService;
+let mockCacheProvider: MockCacheProvider;
 
 describe('CreateUser', () => {
 
     beforeEach(() => {
         mockUsersRepository = new MockUsersRepository();
         mockHashProvider = new MockHashProvider();
-        createUserRepository = new CreateUserService(mockUsersRepository, mockHashProvider);
+        mockCacheProvider = new MockCacheProvider();
+        createUserRepository = new CreateUserService(mockUsersRepository, mockHashProvider, mockCacheProvider);
     })
 
     it('should be able to create a new user', async () => {

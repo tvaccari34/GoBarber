@@ -3,25 +3,25 @@ import MockUsersRepository from '@modules/users/repositories/mocks/MockUsersRepo
 import AppError from '@shared/error/AppError';
 import MockHashProvider from '../providers/HashProvider/mocks/MockHashProvider';
 import AuthenticateUserService from './AuthenticateUserService';
-import CreateUserService from './CreateUserService';
+import MockCacheProvider from '@shared/container/providers/CacheProvider/mocks/MockCacheProvider';
 
 let mockUsersRepository: MockUsersRepository;
 let mockHashProvider: MockHashProvider;
-let createUser: CreateUserService;
 let authenticateUser: AuthenticateUserService;
+let mockCacheProvider: MockCacheProvider;
 
 describe('AuthenticateUser', () => {
 
     beforeEach(() => {
         mockUsersRepository = new MockUsersRepository();
         mockHashProvider = new MockHashProvider();
-        createUser = new CreateUserService(mockUsersRepository, mockHashProvider);
-        authenticateUser = new AuthenticateUserService(mockUsersRepository, mockHashProvider);
+        mockCacheProvider = new MockCacheProvider();
+        authenticateUser = new AuthenticateUserService(mockUsersRepository, mockHashProvider, mockCacheProvider);
     })
 
     it('should be able to authenticate', async () => {
 
-        const user = await createUser.execute({
+        const user = await mockUsersRepository.create({
             name: 'John Doe',
             email: 'johndoe@test.com',
             password: '123456789'
@@ -47,7 +47,7 @@ describe('AuthenticateUser', () => {
     it('should not be able to authenticate within incorrect email', async () => {
 
 
-        const user = await createUser.execute({
+        const user = await mockUsersRepository.create({
             name: 'John Doe',
             email: 'johndoe@test.com',
             password: '123456789'
@@ -60,7 +60,7 @@ describe('AuthenticateUser', () => {
 
     it('should not be able to authenticate within incorrect password', async () => {
 
-        const user = await createUser.execute({
+        const user = await mockUsersRepository.create({
             name: 'John Doe',
             email: 'johndoe@test.com',
             password: '123456789'

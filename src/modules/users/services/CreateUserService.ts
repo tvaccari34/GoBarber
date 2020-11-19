@@ -38,6 +38,8 @@ class CreateUserService {
 
         const user = await this.usersRepository.create({ name, email, password: hashedPassword });
 
+        await this.cacheProvider.invalidatePrefix('provider-lists');
+
         return user;
 
     }

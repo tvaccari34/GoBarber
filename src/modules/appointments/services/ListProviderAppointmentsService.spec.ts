@@ -1,15 +1,18 @@
 import MockAppointmentRepository from '@modules/appointments/repositories/mocks/MockAppointmentsRepository';
+import MockCacheProvider from '@shared/container/providers/CacheProvider/mocks/MockCacheProvider';
 import ListProviderAppointmentsService from './ListProviderAppointmentsService';
 
 
 let listProviderAppointmentsService: ListProviderAppointmentsService;
 let mockAppointmentsRepository: MockAppointmentRepository;
+let mockCacheProvider: MockCacheProvider;
 
 describe('ListProviderMonthAvailability', () => {
 
     beforeEach(() => {
         mockAppointmentsRepository = new MockAppointmentRepository();
-        listProviderAppointmentsService = new ListProviderAppointmentsService(mockAppointmentsRepository);
+        mockCacheProvider = new MockCacheProvider();
+        listProviderAppointmentsService = new ListProviderAppointmentsService(mockAppointmentsRepository, mockCacheProvider);
     });
 
     it('should be able to list daily provider`s appointments', async () => {

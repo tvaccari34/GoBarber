@@ -6,6 +6,7 @@ import {injectable, inject} from 'tsyringe';
 import User from '@modules/users/infra/typeorm/entities/Users';
 import IUsersRepositories from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
     email: string;
@@ -26,6 +27,9 @@ class AuthenticateUserService {
 
         @inject('HashProvider')
         private hashProvider: IHashProvider,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ){}
 
     public async execute({ email, password }: IRequest): Promise<IResponse> {
