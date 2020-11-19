@@ -26,9 +26,9 @@ class ListProviderAppointmentsService {
 
     public async execute({ provider_id, day, month, year }: IRequest): Promise<Appointment[]> {
 
-        const cacheData = await this.cacheProvider.recover('asd');
+        //const cacheData = await this.cacheProvider.recover('asd');
 
-        console.log(cacheData);
+        //console.log(cacheData);
 
         const appointments = await this.appointmentsRepository.listDailyProviderAppointmens({
             provider_id,
