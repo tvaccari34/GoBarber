@@ -33,7 +33,7 @@ class CreateAppointmentService {
 
         const appointmentDate = startOfHour(date);
 
-        const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(appointmentDate);
+        const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(appointmentDate, provider_id);
 
         if (isBefore(appointmentDate, Date.now())) {
             throw new AppError('It is not possible to create an appointment in the past');
