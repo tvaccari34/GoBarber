@@ -3,6 +3,7 @@ import {MigrationInterface, QueryRunner, Table} from "typeorm";
 export default class CreateUserTokens1604069437677 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
         await queryRunner.createTable(
             new Table({
                 name: 'user_tokens',
