@@ -49,7 +49,9 @@ jobs:
           target: "~/app/GoBarber"
        
       #Dependencies on Digital Ocean
-      - name: Install dependencies on Digital Ocean
+      #Execute migrations TypeOrm
+      #Node Server restart
+      - name: Run Production Scripts (Install dependencies, migrations and restart) on Digital Ocean
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -59,27 +61,8 @@ jobs:
           script: |
             cd ~/app/GoBarber
             yarn
-      
-      #Execute migrations TypeOrm
-      - name: Run migrations typeorm on Digital Ocean
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ~/app/GoBarber
             ./node_modules/.bin/typeorm migration:run
-            
-      #Node Server restart
-      - name: Restart server on Digital Ocean
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          script: pm2 restart appuntame-api
+            pm2 restart appuntame-api
+
       
       
